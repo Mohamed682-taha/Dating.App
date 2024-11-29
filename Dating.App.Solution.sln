@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dating.API", "Dating.API\Dating.API.csproj", "{6DAF66E7-818B-4557-9653-7CD4547C3CEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DAF66E7-818B-4557-9653-7CD4547C3CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DAF66E7-818B-4557-9653-7CD4547C3CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DAF66E7-818B-4557-9653-7CD4547C3CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DAF66E7-818B-4557-9653-7CD4547C3CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
