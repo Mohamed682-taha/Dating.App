@@ -5,9 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dating.API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UsersController(DatingDbContext context) : ControllerBase
+public class UsersController(DatingDbContext context) : BaseApiController
 {
 
     [HttpGet] // GET : /api/Users
