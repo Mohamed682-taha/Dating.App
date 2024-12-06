@@ -1,5 +1,7 @@
-﻿using Dating.Data.Entities;
+﻿using Dating.API.DTO;
+using Dating.Data.Entities;
 using Dating.Repository.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +10,7 @@ namespace Dating.API.Controllers;
 public class UsersController(DatingDbContext context) : BaseApiController
 {
 
+    
     [HttpGet] // GET : /api/Users
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
@@ -15,6 +18,7 @@ public class UsersController(DatingDbContext context) : BaseApiController
         return Ok(users);
     }
 
+    [Authorize]
     [HttpGet("{id:int}")] // GET : /api/Users/1
     public async Task<ActionResult<AppUser>> GetUser(int id)
     {

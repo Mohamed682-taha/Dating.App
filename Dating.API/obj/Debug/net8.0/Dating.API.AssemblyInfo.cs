@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dating.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+172c052bcc1fb9a91a9897e4dd0c6ee28b630b14")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd7a1feb1ce723c546108576294f6f73bfac6b94")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dating.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dating.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

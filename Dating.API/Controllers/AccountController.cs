@@ -2,16 +2,17 @@
 using System.Text;
 using Dating.API.DTO;
 using Dating.Data.Entities;
+using Dating.Data.IServices;
 using Dating.Repository.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dating.API.Controllers;
 
-public class AccountController(DatingDbContext context) : BaseApiController
+public class AccountController(DatingDbContext context, ITokenService tokenService) : BaseApiController
 {
     [HttpPost("Register")] // POST : /api/Account/Register
-    public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+    public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
         using var hmac = new HMACSHA512();
         if (await UserExists(registerDto.UserName)) return BadRequest("UserName Already Exists");
@@ -23,11 +24,15 @@ public class AccountController(DatingDbContext context) : BaseApiController
         };
         context.Users.Add(user);
         await context.SaveChangesAsync();
-        return user;
+        return new UserDto()
+        {
+            UserName = user.UserName,
+            Token = tokenService.CreateToken(user)
+        };
     }
 
     [HttpPost("Login")] // POST : /api/Account/Login
-    public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = await context.Users.FirstOrDefaultAsync(u => u.UserName.ToLower() == loginDto.UserName.ToLower());
         if (user is null) return Unauthorized("Invalid UserName");
@@ -39,7 +44,11 @@ public class AccountController(DatingDbContext context) : BaseApiController
             if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid Password");
         }
 
-        return user;
+        return new UserDto()
+        {
+            UserName = user.UserName,
+            Token = tokenService.CreateToken(user)
+        };
     }
 
     private async Task<bool> UserExists(string userName)
