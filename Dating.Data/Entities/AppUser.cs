@@ -18,11 +18,11 @@ public class AppUser
     public required string Country { get; set; }
     public new List<Photo> Photos { get; set; } = [];
 
-    public int GetAge()
-    {
-        var today = DateOnly.FromDateTime(DateTime.Now);
-        var age = today.Year - DateOfBirth.Year;
-        if (DateOfBirth > today.AddYears(-age)) age--;
-        return age;
-    }
+    // public int GetAge()
+    // {
+    //     var today = DateOnly.FromDateTime(DateTime.Now);
+    //     var age = today.Year - DateOfBirth.Year;
+    //     if (DateOfBirth > today.AddYears(-age)) age--;
+    //     return age;
+    // }
 }
