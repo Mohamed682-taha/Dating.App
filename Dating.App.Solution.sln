@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dating.Repository", "Dating
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dating.Service", "Dating.Service\Dating.Service.csproj", "{43410D4F-59DE-4FB2-971B-62D5F93B920F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dating.Shared", "Dating.Shared\Dating.Shared.csproj", "{D2852500-96AB-4C1C-A1C5-5E32590C769B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{43410D4F-59DE-4FB2-971B-62D5F93B920F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43410D4F-59DE-4FB2-971B-62D5F93B920F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43410D4F-59DE-4FB2-971B-62D5F93B920F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2852500-96AB-4C1C-A1C5-5E32590C769B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2852500-96AB-4C1C-A1C5-5E32590C769B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2852500-96AB-4C1C-A1C5-5E32590C769B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2852500-96AB-4C1C-A1C5-5E32590C769B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

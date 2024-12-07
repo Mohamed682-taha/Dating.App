@@ -1,5 +1,7 @@
 ﻿using Dating.API.Errors;
+using Dating.Data.IRepositories;
 using Dating.Data.IServices;
+using Dating.Repository;
 using Dating.Repository.Data;
 using Dating.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,10 @@ public static class ApplicationServices
         {
             opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         });
+
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.Configure<ApiBehaviorOptions>(options =>
         {
@@ -32,7 +37,7 @@ public static class ApplicationServices
             };
         });
 
-        
+
         return services;
     }
 }
