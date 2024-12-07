@@ -14,21 +14,22 @@ public class AccountController(DatingDbContext context, ITokenService tokenServi
     [HttpPost("Register")] // POST : /api/Account/Register
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
-        using var hmac = new HMACSHA512();
+        // using var hmac = new HMACSHA512();
         if (await UserExists(registerDto.UserName)) return BadRequest("UserName Already Exists");
-        var user = new AppUser()
-        {
-            UserName = registerDto.UserName,
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-            PasswordSalt = hmac.Key
-        };
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
-        return new UserDto()
-        {
-            UserName = user.UserName,
-            Token = tokenService.CreateToken(user)
-        };
+        return Ok();
+        // var user = new AppUser()
+        // {
+        //     UserName = registerDto.UserName,
+        //     PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+        //     PasswordSalt = hmac.Key
+        // };
+        // context.Users.Add(user);
+        // await context.SaveChangesAsync();
+        // return new UserDto()
+        // {
+        //     UserName = user.UserName,
+        //     Token = tokenService.CreateToken(user)
+        // };
     }
 
     [HttpPost("Login")] // POST : /api/Account/Login
