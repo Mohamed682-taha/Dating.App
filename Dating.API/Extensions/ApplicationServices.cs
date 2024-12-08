@@ -4,6 +4,7 @@ using Dating.Data.IServices;
 using Dating.Repository;
 using Dating.Repository.Data;
 using Dating.Service;
+using Dating.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +38,8 @@ public static class ApplicationServices
             };
         });
 
+        services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+        services.AddScoped<IPhotoService, PhotoService>();
 
         return services;
     }

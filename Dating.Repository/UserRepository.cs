@@ -27,7 +27,7 @@ public class UserRepository(DatingDbContext context, IMapper mapper) : IUserRepo
 
     public async Task<AppUser?> GetUserByUserName(string username)
     {
-        return await context.Users.SingleOrDefaultAsync(u => u.UserName == username);
+        return await context.Users.Include(u => u.Photos).SingleOrDefaultAsync(u => u.UserName == username);
     }
 
     public async Task<bool> SaveAllChangesAsync()
