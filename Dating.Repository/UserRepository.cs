@@ -35,11 +35,10 @@ public class UserRepository(DatingDbContext context, IMapper mapper) : IUserRepo
         return await context.SaveChangesAsync() > 0;
     }
 
-    public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+    public async Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
-        return await context.Users.ProjectTo<MemberDto>(mapper.ConfigurationProvider)
-            .AsNoTracking()
-            .ToListAsync();
+        var query = context.Users.ProjectTo<MemberDto>(mapper.ConfigurationProvider);
+        return await PageList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
     }
 
     public async Task<MemberDto?> GetMemberByUserNameAsync(string username)

@@ -2,6 +2,7 @@
 using AutoMapper;
 using Dating.API.DTO;
 using Dating.API.Errors;
+using Dating.API.Extensions;
 using Dating.Data.Entities;
 using Dating.Data.IRepositories;
 using Dating.Data.IServices;
@@ -19,9 +20,10 @@ public class UsersController(
 ) : BaseApiController
 {
     [HttpGet] // GET : /api/Users
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+    public async Task<ActionResult<PageList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
-        var users = await userRepository.GetMembersAsync();
+        var users = await userRepository.GetMembersAsync(userParams);
+        Response.ApplyPagination(users);
         return Ok(users);
     }
 

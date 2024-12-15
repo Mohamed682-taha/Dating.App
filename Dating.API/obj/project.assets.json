@@ -2402,7 +2402,6 @@
         "dependencies": {
           "AutoMapper": "13.0.1",
           "Dating.Data": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "8.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10"
         },
         "compile": {
@@ -2430,7 +2429,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "CloudinaryDotNet": "1.26.2"
+          "CloudinaryDotNet": "1.26.2",
+          "Microsoft.EntityFrameworkCore": "8.0.10"
         },
         "compile": {
           "bin/placeholder/Dating.Shared.dll": {}
@@ -7302,7 +7302,6 @@
       "packagesPath": "C:\\Users\\Computec\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Computec\\Desktop\\DatingApp\\Dating.App.Solution\\Dating.API\\obj\\",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
