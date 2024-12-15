@@ -22,6 +22,8 @@ public class UsersController(
     [HttpGet] // GET : /api/Users
     public async Task<ActionResult<PageList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
+        var username = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        userParams.CurrentUserName = username;
         var users = await userRepository.GetMembersAsync(userParams);
         Response.ApplyPagination(users);
         return Ok(users);
