@@ -35,11 +35,24 @@ public class UserRepository(DatingDbContext context, IMapper mapper) : IUserRepo
         return await context.SaveChangesAsync() > 0;
     }
 
-    public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+    public async Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
-        return await context.Users.ProjectTo<MemberDto>(mapper.ConfigurationProvider)
-            .AsNoTracking()
-            .ToListAsync();
+        var query = context.Users.AsQueryable();
+        query = query.Where(u => u.UserName != userParams.CurrentUserName);
+
+        if (userParams.Gender is not null) query = query.Where(u => u.Gender == userParams.Gender);
+        var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
+        var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
+
+        query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+        query = userParams.OrderBy switch
+        {
+            "created" => query.OrderByDescending(u => u.Created),
+            _ => query.OrderByDescending(u => u.LastActive)
+        };
+
+        return await PageList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(mapper.ConfigurationProvider),
+            userParams.PageNumber, userParams.PageSize);
     }
 
     public async Task<MemberDto?> GetMemberByUserNameAsync(string username)
