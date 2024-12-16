@@ -1,4 +1,5 @@
 ﻿using Dating.API.Errors;
+using Dating.API.Helpers;
 using Dating.Data.IRepositories;
 using Dating.Data.IServices;
 using Dating.Repository;
@@ -40,6 +41,7 @@ public static class ApplicationServices
 
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddScoped<IPhotoService, PhotoService>();
+        services.AddScoped<LogUserActivity>();
 
         return services;
     }
