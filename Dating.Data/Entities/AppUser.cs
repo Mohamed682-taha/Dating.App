@@ -16,13 +16,7 @@ public class AppUser
     public string? LookingFor { get; set; }
     public required string City { get; set; }
     public required string Country { get; set; }
-    public new List<Photo> Photos { get; set; } = [];
-
-    // public int GetAge()
-    // {
-    //     var today = DateOnly.FromDateTime(DateTime.Now);
-    //     var age = today.Year - DateOfBirth.Year;
-    //     if (DateOfBirth > today.AddYears(-age)) age--;
-    //     return age;
-    // }
+    public List<Photo> Photos { get; set; } = [];
+    public List<UserLike> LikedByUsers { get; set; } = [];
+    public List<UserLike> LikedUsers { get; set; } = [];
 }
