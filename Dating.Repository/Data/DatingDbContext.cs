@@ -7,6 +7,7 @@ public class DatingDbContext(DbContextOptions<DatingDbContext> options) : DbCont
 {
     public DbSet<AppUser> Users { get; set; }
     public DbSet<UserLike> Likes { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -26,5 +27,15 @@ public class DatingDbContext(DbContextOptions<DatingDbContext> options) : DbCont
             .WithMany(k => k.LikedByUsers)
             .HasForeignKey(k => k.TargetUserId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Entity<Message>()
+            .HasOne(m => m.Sender)
+            .WithMany(m => m.MessagesSent)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Message>()
+            .HasOne(m => m.Recipient)
+            .WithMany(m => m.MessagesRecieved)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

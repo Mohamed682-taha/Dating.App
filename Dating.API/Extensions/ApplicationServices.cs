@@ -28,6 +28,7 @@ public static class ApplicationServices
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddScoped<LogUserActivity>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
 
         services.Configure<ApiBehaviorOptions>(options =>
         {
