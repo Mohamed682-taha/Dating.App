@@ -19,6 +19,7 @@ public class UsersController(
     IPhotoService photoService
 ) : BaseApiController
 {
+    // [Authorize(Roles = "Admin")]
     [HttpGet] // GET : /api/Users
     public async Task<ActionResult<PageList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
@@ -29,6 +30,7 @@ public class UsersController(
         return Ok(users);
     }
 
+    // [Authorize(Roles = "Member")]
     [HttpGet("{username}")] // GET : /api/Users/lisa
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
@@ -40,7 +42,7 @@ public class UsersController(
     [HttpPut] // PUT : /api/Users
     public async Task<ActionResult> UpdateUser(MemberUpdateDto dto)
     {
-        var username = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+        var username = User.GetUserName();
         var user = await userRepository.GetUserByUserName(username);
         mapper.Map(dto, user);
         if (await userRepository.SaveAllChangesAsync()) return NoContent();

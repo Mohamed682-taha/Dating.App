@@ -2,6 +2,7 @@
 
 namespace Dating.Shared;
 
+// response that returns when i user pageination
 public class PageList<T> : List<T>
 {
     private PageList(IEnumerable<T> items, int count, int pageNumber, int pageSize)

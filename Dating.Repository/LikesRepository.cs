@@ -45,6 +45,7 @@ public class LikesRepository(DatingDbContext context, IMapper mapper) : ILikesRe
         return await PageList<MemberDto>.CreateAsync(query, likesParams.PageNumber, likesParams.PageSize);
     }
 
+    // users id that current user(lisa) liked
     public async Task<IEnumerable<int>> GetCurrentUserLikeIds(int currentUserId)
     {
         return await context.Likes
