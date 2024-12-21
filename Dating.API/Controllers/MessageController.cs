@@ -5,10 +5,12 @@ using Dating.API.Extensions;
 using Dating.Data.Entities;
 using Dating.Data.IRepositories;
 using Dating.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dating.API.Controllers;
 
+[Authorize]
 public class MessageController(
     IMessageRepository messageRepo,
     IUserRepository userRepo,
@@ -25,7 +27,7 @@ public class MessageController(
         var sender = await userRepo.GetUserByUserName(userName);
         var recipient = await userRepo.GetUserByUserName(createMessageDto.RecipientUserName);
 
-        if (sender is null || recipient is null)
+        if (sender is null || recipient is null || sender.UserName is null || recipient.UserName is null)
             return BadRequest(new ApiResponse(400, "Cannot send message at this time"));
 
         var message = new Message()
