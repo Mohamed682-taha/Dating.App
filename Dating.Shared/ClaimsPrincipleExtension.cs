@@ -1,18 +1,18 @@
 ﻿using System.Security.Claims;
 
-namespace Dating.API.Extensions;
+namespace Dating.Shared;
 
 public static class ClaimsPrincipleExtension
 {
     public static string GetUserName(this ClaimsPrincipal user)
     {
-        var username = user.FindFirstValue(ClaimTypes.Name);
+        var username = user.FindFirst(ClaimTypes.Name)!.Value;
         return username!;
     }
 
     public static int GetUserId(this ClaimsPrincipal user)
     {
-        var userId = int.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier));
+        var userId = int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         return userId;
     }
 }

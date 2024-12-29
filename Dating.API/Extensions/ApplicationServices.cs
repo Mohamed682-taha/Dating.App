@@ -29,6 +29,8 @@ public static class ApplicationServices
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddScoped<LogUserActivity>();
         services.AddScoped<IMessageRepository, MessageRepository>();
+        services.AddSignalR();
+        services.AddSingleton<PresenceTracker>();
 
         services.Configure<ApiBehaviorOptions>(options =>
         {

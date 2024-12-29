@@ -11,4 +11,9 @@ public interface IMessageRepository
     Task<PageList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
     Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientCurrentUserName);
     Task<bool> SaveAllChanges();
+    void AddGroup(Group group);
+    void RemoveConnection(Connection connection);
+    Task<Connection?> GetConnection(string connectionId);
+    Task<Group?> GetMessageGroup(string groupName);
+    Task<Group?> GetGroupForConnection(string connectionId);
 }

@@ -1,4 +1,4 @@
-﻿namespace Dating.API.DTO;
+﻿namespace Dating.Shared;
 
 public class CreateMessageDto
 {
