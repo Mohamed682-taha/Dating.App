@@ -30,11 +30,6 @@ public class UserRepository(DatingDbContext context, IMapper mapper) : IUserRepo
         return await context.Users.Include(u => u.Photos).SingleOrDefaultAsync(u => u.UserName == username);
     }
 
-    public async Task<bool> SaveAllChangesAsync()
-    {
-        return await context.SaveChangesAsync() > 0;
-    }
-
     public async Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
         var query = context.Users.AsQueryable();
