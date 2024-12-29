@@ -46,13 +46,12 @@ public class MessageRepository(DatingDbContext context, IMapper mapper) : IMessa
     public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName)
     {
         var messages = await context.Messages
-            .Include(m => m.Sender).ThenInclude(m => m.Photos)
-            .Include(m => m.Recipient).ThenInclude(m => m.Photos)
             .Where(m => (m.RecipientUserName == currentUserName && m.RecipientDeleted == false &&
                          m.SenderUserName == recipientUserName) ||
                         (m.SenderUserName == currentUserName && m.SenderDeleted == false &&
                          m.RecipientUserName == recipientUserName))
             .OrderBy(m => m.MessageSentDate)
+            .ProjectTo<MessageDto>(mapper.ConfigurationProvider)
             .ToListAsync();
 
         var unreadMessage = messages
@@ -64,11 +63,41 @@ public class MessageRepository(DatingDbContext context, IMapper mapper) : IMessa
             await context.SaveChangesAsync();
         }
 
-        return mapper.Map<IEnumerable<MessageDto>>(messages);
+        return messages;
     }
 
     public async Task<bool> SaveAllChanges()
     {
         return await context.SaveChangesAsync() > 0;
+    }
+
+    public void AddGroup(Group group)
+    {
+        context.Groups.Add(group);
+    }
+
+    public void RemoveConnection(Connection connection)
+    {
+        context.Connections.Remove(connection);
+    }
+
+    public async Task<Connection?> GetConnection(string connectionId)
+    {
+        return await context.Connections.FindAsync(connectionId);
+    }
+
+    public async Task<Group?> GetMessageGroup(string groupName)
+    {
+        return await context.Groups
+            .Include(x => x.Connections)
+            .FirstOrDefaultAsync(x => x.Name == groupName);
+    }
+
+    public async Task<Group?> GetGroupForConnection(string connectionId)
+    {
+        return await context.Groups
+            .Include(x => x.Connections)
+            .Where(x => x.Connections.Any(c => c.ConnectionId == connectionId))
+            .FirstOrDefaultAsync();
     }
 }
