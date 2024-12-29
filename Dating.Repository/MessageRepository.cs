@@ -45,14 +45,13 @@ public class MessageRepository(DatingDbContext context, IMapper mapper) : IMessa
 
     public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName)
     {
-        var messages = await context.Messages
+        var messages = context.Messages
             .Where(m => (m.RecipientUserName == currentUserName && m.RecipientDeleted == false &&
                          m.SenderUserName == recipientUserName) ||
                         (m.SenderUserName == currentUserName && m.SenderDeleted == false &&
                          m.RecipientUserName == recipientUserName))
             .OrderBy(m => m.MessageSentDate)
-            .ProjectTo<MessageDto>(mapper.ConfigurationProvider)
-            .ToListAsync();
+            .AsQueryable();
 
         var unreadMessage = messages
             .Where(m => m.DateRead == null && m.RecipientUserName == currentUserName)
@@ -63,14 +62,10 @@ public class MessageRepository(DatingDbContext context, IMapper mapper) : IMessa
             await context.SaveChangesAsync();
         }
 
-        return messages;
+        return await messages.ProjectTo<MessageDto>(mapper.ConfigurationProvider).ToListAsync();
     }
 
-    public async Task<bool> SaveAllChanges()
-    {
-        return await context.SaveChangesAsync() > 0;
-    }
-
+    
     public void AddGroup(Group group)
     {
         context.Groups.Add(group);
